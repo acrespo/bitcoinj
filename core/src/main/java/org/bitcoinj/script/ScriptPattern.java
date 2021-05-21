@@ -253,4 +253,24 @@ public class ScriptPattern {
     public static Sha256Hash extractWitnessCommitmentHash(Script script) {
         return Sha256Hash.wrap(Arrays.copyOfRange(script.chunks.get(1).data, 4, 36));
     }
+
+    /**
+     * Returns true if this script is of the form {@code OP_1 <hash>} and hash is 32 bytes long. This can only be a
+     * P2TR scriptPubKey. This script type was introduced with BIP-342.
+     */
+    public static boolean isP2TR(Script script) {
+        List<ScriptChunk> chunks = script.chunks;
+        if (!chunks.get(0).equalsOpCode(OP_1))
+            return false;
+        byte[] chunk1data = chunks.get(1).data;
+        return chunk1data != null && chunk1data.length == SegwitAddress.WITNESS_PROGRAM_LENGTH_P2TR;
+    }
+
+    /**
+     * Extract the 32-byte pubkey from a P2TR scriptPubKey. It's important that the script is in the correct form, so
+     * you will want to guard calls to this method with {@link #isP2TR(Script)}.
+     */
+    public static byte[] extractKeyFromP2TR(Script script) {
+        return script.chunks.get(1).data;
+    }
 }

@@ -48,6 +48,7 @@ public class SegwitAddress extends Address {
     public static final int WITNESS_PROGRAM_LENGTH_SH = 32;
     public static final int WITNESS_PROGRAM_MIN_LENGTH = 2;
     public static final int WITNESS_PROGRAM_MAX_LENGTH = 40;
+    public static final int WITNESS_PROGRAM_LENGTH_P2TR = 32;
 
     /**
      * Private constructor. Use {@link #fromBech32(NetworkParameters, String)},

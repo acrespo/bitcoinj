@@ -553,4 +553,13 @@ public class ScriptBuilder {
         checkArgument(data.length <= 80);
         return new ScriptBuilder().op(OP_RETURN).data(data).build();
     }
+
+    /**
+     * Creates a scriptPubKey that sends to the given Taproot script key.
+     */
+    public static Script createP2TROutputScript(ECKey pubkey) {
+        byte[] key = new byte[32];
+        System.arraycopy(pubkey.getPubKey(), 1, key, 0, 32);
+        return new ScriptBuilder().smallNum(1).data(key).build();
+    }
 }

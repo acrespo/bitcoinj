@@ -93,4 +93,10 @@ public class ScriptPatternTest {
                 ScriptBuilder.createOpReturnScript(new byte[10])
         ));
     }
+
+    @Test
+    public void testCreateP2TROutputScript() {
+        assertTrue(ScriptPattern.isP2TR(
+                ScriptBuilder.createP2TROutputScript(keys.get(0))));
+    }
 }
