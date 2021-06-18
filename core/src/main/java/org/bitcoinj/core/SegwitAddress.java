@@ -48,11 +48,13 @@ public class SegwitAddress extends Address {
     public static final int WITNESS_PROGRAM_LENGTH_SH = 32;
     public static final int WITNESS_PROGRAM_MIN_LENGTH = 2;
     public static final int WITNESS_PROGRAM_MAX_LENGTH = 40;
+    public static final int WITNESS_PROGRAM_LENGTH_P2TR = 32;
 
     /**
-     * Private constructor. Use {@link #fromBech32(NetworkParameters, String)},
-     * {@link #fromHash(NetworkParameters, byte[])} or {@link #fromKey(NetworkParameters, ECKey)}.
-     * 
+     * Construct a {@link SegwitAddress} that represents the given hash, which is either a pubkey
+     * hash or a script hash. The resulting address will be either a P2WPKH or a P2WSH type of
+     * address.
+     *
      * @param params
      *            network this address is valid for
      * @param witnessVersion
@@ -60,7 +62,7 @@ public class SegwitAddress extends Address {
      * @param witnessProgram
      *            hash of pubkey or script (for version 0)
      */
-    private SegwitAddress(NetworkParameters params, int witnessVersion, byte[] witnessProgram)
+    public SegwitAddress(NetworkParameters params, int witnessVersion, byte[] witnessProgram)
             throws AddressFormatException {
         this(params, encode(witnessVersion, witnessProgram));
     }
